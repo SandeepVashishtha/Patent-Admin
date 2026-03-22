@@ -1,0 +1,160 @@
+{
+  "name": "Patent IPR Backend API Contract",
+  "version": "1.0.0",
+  "baseUrl": "http://localhost:5000",
+  "auth": {
+    "type": "Bearer",
+    "header": "Authorization",
+    "format": "Bearer <token>"
+  },
+  "endpoints": [
+    {
+      "name": "Health",
+      "method": "GET",
+      "path": "/api/health",
+      "authRequired": false
+    },
+    {
+      "name": "Register",
+      "method": "POST",
+      "path": "/api/auth/register",
+      "authRequired": false,
+      "body": {
+        "name": "John Doe",
+        "email": "john@example.com",
+        "password": "password123",
+        "role": "CLIENT"
+      }
+    },
+    {
+      "name": "Login",
+      "method": "POST",
+      "path": "/api/auth/login",
+      "authRequired": false,
+      "body": {
+        "email": "john@example.com",
+        "password": "password123"
+      }
+    },
+    {
+      "name": "Admin Create Agent",
+      "method": "POST",
+      "path": "/api/admin/create-agent",
+      "authRequired": true,
+      "roles": ["ADMIN"],
+      "body": {
+        "name": "Agent Name",
+        "email": "agent@example.com",
+        "password": "password123"
+      }
+    },
+    {
+      "name": "Admin Create Client",
+      "method": "POST",
+      "path": "/api/admin/create-client",
+      "authRequired": true,
+      "roles": ["ADMIN"],
+      "body": {
+        "name": "Client Name",
+        "email": "client@example.com",
+        "password": "password123"
+      }
+    },
+    {
+      "name": "Admin Get Users",
+      "method": "GET",
+      "path": "/api/admin/users",
+      "authRequired": true,
+      "roles": ["ADMIN"]
+    },
+    {
+      "name": "Admin Delete User",
+      "method": "DELETE",
+      "path": "/api/admin/user/:id",
+      "authRequired": true,
+      "roles": ["ADMIN"]
+    },
+    {
+      "name": "Admin Assign Patent",
+      "method": "POST",
+      "path": "/api/admin/assign-patent",
+      "authRequired": true,
+      "roles": ["ADMIN"],
+      "body": {
+        "patentId": "patent-uuid",
+        "agentId": "agent-uuid"
+      }
+    },
+    {
+      "name": "Client Submit Patent",
+      "method": "POST",
+      "path": "/api/patent/submit",
+      "authRequired": true,
+      "roles": ["CLIENT"],
+      "body": {
+        "title": "AI-based Compression",
+        "description": "A method for improving data compression using ML"
+      }
+    },
+    {
+      "name": "Client My Patents",
+      "method": "GET",
+      "path": "/api/client/patents",
+      "authRequired": true,
+      "roles": ["CLIENT"]
+    },
+    {
+      "name": "Agent Assigned Patents",
+      "method": "GET",
+      "path": "/api/agent/patents",
+      "authRequired": true,
+      "roles": ["AGENT"]
+    },
+    {
+      "name": "Agent Update Patent Status",
+      "method": "PUT",
+      "path": "/api/agent/patent/:id",
+      "authRequired": true,
+      "roles": ["AGENT"],
+      "body": {
+        "status": "APPROVED"
+      }
+    },
+    {
+      "name": "Legacy: Get Patent By Reference",
+      "method": "GET",
+      "path": "/api/v1/patents/:referenceNumber",
+      "authRequired": false
+    },
+    {
+      "name": "Legacy: User Filings",
+      "method": "GET",
+      "path": "/api/v1/patents/user/filings",
+      "authRequired": true
+    },
+    {
+      "name": "Legacy: Generate Reference",
+      "method": "GET",
+      "path": "/api/v1/patents/reference-number/next",
+      "authRequired": false
+    },
+    {
+      "name": "Legacy: Get Draft",
+      "method": "GET",
+      "path": "/api/v1/patents/draft/:draftId",
+      "authRequired": true
+    },
+    {
+      "name": "Legacy: Submit Filing",
+      "method": "POST",
+      "path": "/api/v1/patents/submit",
+      "authRequired": true
+    },
+    {
+      "name": "Legacy: Save Draft",
+      "method": "POST",
+      "path": "/api/v1/patents/draft",
+      "authRequired": true
+    }
+  ]
+}
